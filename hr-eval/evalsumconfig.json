@@ -1,0 +1,23 @@
+{
+    "directories": {
+        "HR3a": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR3a/hurricane",
+        "HR1": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR1/hurricane",
+        "HR2": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR2/hurricane",
+        "GFSv16": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/GFSv16/hurricane",
+        "MULTI1": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/MULTI1/hurricane",
+        "HR3b": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR3b/hurricane"
+    },
+    "filenames": [
+        "filtered_3h_to_24h.nc",
+        "filtered_24h_to_48h.nc",
+        "filtered_48h_to_72h.nc",
+        "filtered_72h_to_96h.nc",
+        "filtered_96h_to_120h.nc",
+        "filtered_120h_to_144h.nc",
+        "filtered_144h_to_168h.nc"
+    ],
+    "satellite_name": "CRYOSAT",
+    "season": "Hurricane",
+    "output_dir": "./plots/hurricane"
+}
+

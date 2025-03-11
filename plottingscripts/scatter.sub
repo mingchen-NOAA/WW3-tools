@@ -1,0 +1,20 @@
+#!/bin/sh 
+
+#SBATCH --nodes=1
+#SBATCH -q batch
+#SBATCH -t 08:00:00
+#SBATCH -A marine-cpu
+#SBATCH -J plotscatter
+#SBATCH -o out_scatter.out
+#SBATCH --partition=orion
+#SBATCH --exclusive
+
+
+ulimit -s unlimited
+
+module use /work2/noaa/marine/jmeixner/general/modulefiles
+module load ww3tools
+
+export PYTHONPATH=/work/noaa/marine/jmeixner/PlotsOut/emcpy/src:${PYTHONPATH}
+
+python ScatterPlot.py -m 'HR3b' 

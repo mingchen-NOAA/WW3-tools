@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#SBATCH --nodes=1
+#SBATCH -q batch
+#SBATCH -t 04:00:00
+#SBATCH -A marine-cpu
+#SBATCH -J hrstatswrite
+#SBATCH -o hrstatswritexarray.out
+
+
+module use /scratch1/NCEPDEV/climate/Jessica.Meixner/general/modulefiles-rocky16
+module load ww3tools
+
+#export PYTHONPATH=/work/noaa/marine/jmeixner/PlotsOut/emcpy/src:${PYTHONPATH}
+export PYTHONPATH=/scratch1/NCEPDEV/climate/Jessica.Meixner/uifcwhreval/WW3-tools/ww3tools:${PYTHONPATH}
+
+
+python makestatsxarray.py

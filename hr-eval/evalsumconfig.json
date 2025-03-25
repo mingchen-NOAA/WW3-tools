@@ -1,23 +1,31 @@
 {
     "directories": {
-        "HR3a": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR3a/hurricane",
-        "HR1": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR1/hurricane",
-        "HR2": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR2/hurricane",
-        "GFSv16": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/GFSv16/hurricane",
-        "MULTI1": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/MULTI1/hurricane",
-        "HR3b": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR3b/hurricane"
+        "multi1": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "GFSv16": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR1": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR2": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR3a": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR3b": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR5": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin"
     },
     "filenames": [
-        "filtered_3h_to_24h.nc",
-        "filtered_24h_to_48h.nc",
-        "filtered_48h_to_72h.nc",
-        "filtered_72h_to_96h.nc",
-        "filtered_96h_to_120h.nc",
-        "filtered_120h_to_144h.nc",
-        "filtered_144h_to_168h.nc"
-    ],
-    "satellite_name": "CRYOSAT",
-    "season": "Hurricane",
-    "output_dir": "./plots/hurricane"
+        "combined_day01",
+        "combined_day02",
+        "combined_day03",
+        "combined_day04",
+        "combined_day05",
+        "combined_day06",
+        "combined_day07",
+        "combined_day08",
+        "combined_day09",
+        "combined_day10",
+        "combined_day11",
+        "combined_day12",
+        "combined_day13",
+        "combined_day14",
+        "combined_day15",
+        "combined_day16"  ],
+    "satellite_name": "JASON3",
+    "season": "summer",
+    "output_dir": "/work2/noaa/marine/ming.chen/HR_Eval/plots/summer"
 }
-

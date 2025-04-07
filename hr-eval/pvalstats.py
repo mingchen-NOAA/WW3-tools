@@ -400,9 +400,9 @@ class ModelObsPlot:
                     ax.plot(aux,aregr,color=self.color[i],ls='-',linewidth=1.,alpha=0.8,zorder=4)
                     ax.plot(aux,aregr,color='k',ls=':',linewidth=0.7,alpha=0.7,zorder=4)
                     if np.size(self.mlabels)>0:
-                        print(self.ftag+"QQplot "+self.mlabels[i]+": Slope "+np.str(np.round(float(r.slope),5))+", Intercept "+np.str(np.round(float(r.intercept),5)))
+                        print(self.ftag+"QQplot "+self.mlabels[i]+": Slope "+str(np.round(float(r.slope),5))+", Intercept "+str(np.round(float(r.intercept),5)))
                     else:
-                        print(self.ftag+"QQplot: Slope "+np.str(np.round(float(r.slope),5))+", Intercept "+np.str(np.round(float(r.intercept),5)))                      
+                        print(self.ftag+"QQplot: Slope "+str(np.round(float(r.slope),5))+", Intercept "+str(np.round(float(r.intercept),5)))
 
                     del a,b,r,aregr
 
@@ -484,7 +484,7 @@ class ModelObsPlot:
                 else:
                     ax.scatter(b, a, color=self.color[i], marker=self.marker[i], zorder=2)
             elif (np.size(self.color) == 1) and (self.model.shape[0] == 1):
-                ax.scatter(b, a, color=self.color[i], marker=self.marker[i], zorder=2)
+                ax.scatter(b, a, color=self.color[i], marker=self.marker[i], label=self.mlabels[i], zorder=2)
             else:
                 xy = np.vstack([a, b])
                 z = gaussian_kde(xy)(xy)

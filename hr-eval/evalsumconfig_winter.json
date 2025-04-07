@@ -1,0 +1,29 @@
+{
+    "directories": {
+        "HR1": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR2": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR3a": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR3b": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR5": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin"
+    },
+    "filenames": [
+        "combined_day01",
+        "combined_day02",
+        "combined_day03",
+        "combined_day04",
+        "combined_day05",
+        "combined_day06",
+        "combined_day07",
+        "combined_day08",
+        "combined_day09",
+        "combined_day10",
+        "combined_day11",
+        "combined_day12",
+        "combined_day13",
+        "combined_day14",
+        "combined_day15",
+        "combined_day16"  ],
+    "satellite_name": "CRYOSAT2",
+    "season": "winter",
+    "output_dir": "/work2/noaa/marine/ming.chen/HR_Eval/plots/winter_CRYOSAT2"
+}

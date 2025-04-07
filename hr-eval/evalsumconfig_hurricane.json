@@ -1,0 +1,20 @@
+{
+    "directories": {
+        "GFSv16": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR1": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR2": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR3b": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin",
+        "HR5": "/work2/noaa/marine/ming.chen/HR_Eval/data/origin"
+    },
+    "filenames": [
+        "combined_day01",
+        "combined_day02",
+        "combined_day03",
+        "combined_day04",
+        "combined_day05",
+        "combined_day06",
+        "combined_day07"  ],
+    "satellite_name": "CRYOSAT2",
+    "season": "hurricane",
+    "output_dir": "/work2/noaa/marine/ming.chen/HR_Eval/plots/hurricane_CRYOSAT2"
+}

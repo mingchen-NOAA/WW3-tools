@@ -1,0 +1,115 @@
+{
+    "models": [
+        {
+            "model_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/HR1-CRYOSAT/summer",
+            "base_output_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR1/summer",
+            "time_ranges": [
+                {"start": 2, "end": 24},
+                {"start": 24, "end": 48},
+                {"start": 48, "end": 72},
+                {"start": 72, "end": 96},
+                {"start": 96, "end": 120},
+                {"start": 120, "end": 144},
+                {"start": 144, "end": 168},
+                {"start": 168, "end": 192},
+                {"start": 192, "end": 216},
+                {"start": 216, "end": 240},
+                {"start": 240, "end": 264},
+                {"start": 264, "end": 288},
+                {"start": 288, "end": 312},
+                {"start": 312, "end": 336},
+                {"start": 336, "end": 360},
+                {"start": 360, "end": 384}
+            ]
+        },
+        {
+            "model_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/HR2-CRYOSAT/summer",
+            "base_output_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR2/summer",
+            "time_ranges": [
+                {"start": 2, "end": 24},
+                {"start": 24, "end": 48},
+                {"start": 48, "end": 72},
+                {"start": 72, "end": 96},
+                {"start": 96, "end": 120},
+                {"start": 120, "end": 144},
+                {"start": 144, "end": 168},
+                {"start": 168, "end": 192},
+                {"start": 192, "end": 216},
+                {"start": 216, "end": 240},
+                {"start": 240, "end": 264},
+                {"start": 264, "end": 288},
+                {"start": 288, "end": 312},
+                {"start": 312, "end": 336},
+                {"start": 336, "end": 360},
+                {"start": 360, "end": 384}
+            ]
+        },
+        {
+            "model_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/HR3a_CRYOSAT/summer",
+            "base_output_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR3a/summer",
+            "time_ranges": [
+                {"start": 2, "end": 24},
+                {"start": 24, "end": 48},
+                {"start": 48, "end": 72},
+                {"start": 72, "end": 96},
+                {"start": 96, "end": 120},
+                {"start": 120, "end": 144},
+                {"start": 144, "end": 168},
+                {"start": 168, "end": 192},
+                {"start": 192, "end": 216},
+                {"start": 216, "end": 240},
+                {"start": 240, "end": 264},
+                {"start": 264, "end": 288},
+                {"start": 288, "end": 312},
+                {"start": 312, "end": 336},
+                {"start": 336, "end": 360},
+                {"start": 360, "end": 384}
+            ]
+        },
+        {
+            "model_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/Multi1-CRYOSAT/summer",
+            "base_output_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/MULTI1/summer",
+            "time_ranges": [
+                {"start": 2, "end": 24},
+                {"start": 24, "end": 48},
+                {"start": 48, "end": 72},
+                {"start": 72, "end": 96},
+                {"start": 96, "end": 120},
+                {"start": 120, "end": 144},
+                {"start": 144, "end": 168},
+                {"start": 168, "end": 192},
+                {"start": 192, "end": 216},
+                {"start": 216, "end": 240},
+                {"start": 240, "end": 264},
+                {"start": 264, "end": 288},
+                {"start": 288, "end": 312},
+                {"start": 312, "end": 336},
+                {"start": 336, "end": 360},
+                {"start": 360, "end": 384}
+            ]
+        },
+        {
+            "model_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/HR3b-CRYOSAT/summer",
+            "base_output_dir": "/scratch2/NCEPDEV/marine/Ghazal.Mohammadpour/transfer/validation/WW3-tools/ww3tools/ORION/WW3-tools/ww3tools/output/HR3b/summer",
+            "time_ranges": [
+                {"start": 2, "end": 24},
+                {"start": 24, "end": 48},
+                {"start": 48, "end": 72},
+                {"start": 72, "end": 96},
+                {"start": 96, "end": 120},
+                {"start": 120, "end": 144},
+                {"start": 144, "end": 168},
+                {"start": 168, "end": 192},
+                {"start": 192, "end": 216},
+                {"start": 216, "end": 240},
+                {"start": 240, "end": 264},
+                {"start": 264, "end": 288},
+                {"start": 288, "end": 312},
+                {"start": 312, "end": 336},
+                {"start": 336, "end": 360},
+                {"start": 360, "end": 384}
+            ]
+        }
+    ]
+}
+

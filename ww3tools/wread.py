@@ -960,12 +960,13 @@ def aodn_altimeter(satname,wconfig,datemin,datemax):
             else:
                 hem='S'
 
-            try: 
+            try:
                 fu=nc.Dataset(wconfig['path_alt']+satname+'/IMOS_SRS-Surface-Waves_MW_'+nsatname+'_FV02_'+str(np.abs(j)).zfill(3)+hem+'-'+str(k).zfill(3)+'E-DM00.nc')
             except:
                 print(' '+wconfig['path_alt']+satname+'/IMOS_SRS-Surface-Waves_MW_'+nsatname+'_FV02_'+str(np.abs(j)).zfill(3)+hem+'-'+str(k).zfill(3)+'E-DM00.nc does not exist')
             else:
                 st=np.double(fu.variables['TIME'][:]*24.*3600.+float(timegm( time.strptime('1985010100', '%Y%m%d%H') )))
+                st = np.atleast_1d(st)
                 indt=np.where((st>=adatemin-wconfig['maxti']) & (st<=adatemax+wconfig['maxti']))
                 # check if there is valid records inside the time range of interest
                 if np.size(indt)>10:
@@ -977,7 +978,7 @@ def aodn_altimeter(satname,wconfig,datemin,datemax):
                     sdistcoast=fu.variables['DIST2COAST'][:]
                     wnd=fu.variables['WSPD'][:]
                     wndcal=fu.variables['WSPD_CAL'][:]
-                    try: 
+                    try:
                         hsk=fu.variables['SWH_KU'][:]
                         hskcal=fu.variables['SWH_KU_CAL'][:]
                         sig0knstd=fu.variables['SIG0_KU_std_dev'][:]

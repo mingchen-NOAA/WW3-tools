@@ -77,6 +77,8 @@ for i in range(len(dates1)):
             f.write(f"#SBATCH -J procsat_{satelites[j]}_{dates1[i]}\n")
             f.write(f"#SBATCH -o run_{satelites[j]}_{dates1[i]}.o%j\n")
             f.write("#SBATCH --exclusive\n\n")
+            f.write(f"module use /scratch3/NCEPDEV/climate/Jessica.Meixner/general/modulefiles\n")
+            f.write(f"module load ww3tools\n\n")
             f.write(f'ThisDir="{ThisDir}"\n')
             f.write(f'PathToWW3TOOLS="{PathToWW3TOOLS}"\n\n')
             f.write(f'SAT="{satelites[j]}"\n')

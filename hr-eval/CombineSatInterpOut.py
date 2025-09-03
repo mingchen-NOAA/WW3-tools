@@ -10,7 +10,7 @@ import xarray as xr
 
 
 '''
-Create combined NetCDF files for easier post processing. 
+Create combined NetCDF files for easier post processing.
 '''
 
 def main():
@@ -24,15 +24,13 @@ def main():
   OUTDIR = MyArgs.outdir
 
 
-  #Check output directory exists: 
-  INPUTDIR=f"/work2/noaa/marine/jmeixner/processsatdata/outinterp/{model}"
+  #Check output directory exists:
+  INPUTDIR=f"/scratch4/NCEPDEV/marine/Ming.Chen/wave_eval/processsatdata_ursa/outinterp/{model}"
   if not os.path.isdir(INPUTDIR):
-    INPUTDIR=f"/scratch1/NCEPDEV/climate/Jessica.Meixner/processsatdata/outinterp/{model}"
-    if not os.path.isdir(INPUTDIR):
-      print('INPUTDIR ({INPUTDIR}) does not exist!!!!') 
-      exit(1) 
+    print('INPUTDIR ({INPUTDIR}) does not exist!!!!')
+    exit(1)
 
-  #create OUTDIR directory if it does not exist: 
+  #create OUTDIR directory if it does not exist:
   if not os.path.isdir(OUTDIR):
     os.makedirs(OUTDIR)
 
@@ -40,16 +38,13 @@ def main():
 
   satelites=['JASON3', 'CRYOSAT2', 'SARAL', 'SENTINEL3A'] #JASON3,JASON2,CRYOSAT2,JASON1,HY2,SARAL,SENTINEL3A,ENVISAT,ERS1,ERS2,GEOSAT,GFO,TOPEX,SENTINEL3B,CFOSAT
 
-  if model == "GFSv16": 
-    season=['summer', 'hurricane']
-  else: 
-    season=['winter', 'summer', 'hurricane']
+  season=['winter']
 
   for k in range(len(season)):
     if season[k] == "winter":
-       startdate = dt.datetime(2019,12,3)
-       enddate = dt.datetime(2020,2,26)
-       datestride = 3 
+       startdate = dt.datetime(2024,11,15,12)
+       enddate = dt.datetime(2024,12,17,18)
+       datestride = 6 # hours
        endday = 16
     elif season[k] == "summer":
        startdate = dt.datetime(2020,6,1)
@@ -71,9 +66,9 @@ def main():
     dates1 = []
     while nowdate <= enddate:
        dates1.append(nowdate.strftime('%Y%m%d%H'))
-       nowdate = nowdate + dt.timedelta(days=datestride)
+       nowdate = nowdate + dt.timedelta(hours=datestride)
 
-    for j in range(len(satelites)): 
+    for j in range(len(satelites)):
       time = []; lats = []; lons = []
       fhrs = []; fhrsall = [];
       obs_hs = []; obs_wnd = []
@@ -81,27 +76,39 @@ def main():
       obs_hs_cal = []; obs_wnd_cal = []
       for i in range(len(dates1)):
          #list of grids for each model.  First should be "global" or the base, followed by high resolution inserts in the order 
-         #of lower(global) to higher(regional) resolution. 
+         #of lower(global) to higher(regional) resolution.
+
+         missing = False
+
          if model == "multi1":
             grids=['global.0p50', 'alaska.0p16', 'atlocn.0p16', 'epacif.0p16', 'wcoast.0p16', 'alaska.0p06', 'atlocn.0p06', 'wcoast.0p06']
          elif model == "GFSv16":
-            grids=['global.0p25', 'global.0p16']
+            grids=['global.0p25']
          else:
             grids=['global.0p25']
 
-         for g in range(len(grids)): 
-            
-            if model == "multi1": 
+         for g in range(len(grids)):
+
+            if model == "multi1":
                INPUT_FILE=f"{model}_{grids[g]}_{dates1[i]}_{satelites[j]}.nc"
             elif model == "GFSv16":
                INPUT_FILE=f"{model}_{grids[g]}_{dates1[i]}_{satelites[j]}.nc"
-            else: 
+            elif model == "Retrotests":
+               INPUT_FILE=f"{model}_{grids[g]}_{dates1[i]}_{satelites[j]}.nc"
+            else:
                INPUT_FILE=f"{model}_{grids[g]}_{season[k]}_{dates1[i]}_{satelites[j]}.nc"
 
             datapath = INPUTDIR + "/" + INPUT_FILE
-            datanc  = nc.Dataset(datapath)
+
+            try:
+               datanc  = nc.Dataset(datapath)
+            except FileNotFoundError:
+                print(f"[skip] Missing file: {datapath}")
+                missing = True
+                break
+
             if g == 0:
-               #this is the global/base grid:  
+               #this is the global/base grid:
                time_tmpbase = np.array(datanc.variables['time'][:])
                fhrs_tmpbase = np.array(datanc.variables['fcst_hr'][:])
                lats_tmpbase = np.array(datanc.variables['latitude'][:])
@@ -111,11 +118,11 @@ def main():
                obs_wnd_tmpbase = np.array(datanc.variables['obs_wnd'][:])
                obs_wnd_cal_tmpbase = np.array(datanc.variables['obs_wnd_cal'][:])
                model_hs_tmpbase = np.array(datanc.variables['model_hs'][:])
-               model_wnd_tmpbase = np.array(datanc.variables['model_wnd'][:]) 
+               model_wnd_tmpbase = np.array(datanc.variables['model_wnd'][:])
                initial_condition_time = datanc.getncattr('initial_condition_time')
-               fhrsall_tmpbase = (time_tmpbase - initial_condition_time)/3600 
-            else: 
-               #this is s a higher resolution sub-grid 
+               fhrsall_tmpbase = (time_tmpbase - initial_condition_time)/3600
+            else:
+               #this is s a higher resolution sub-grid
                time_tmphigh = np.array(datanc.variables['time'][:])
                fhrs_tmphigh = np.array(datanc.variables['fcst_hr'][:])
                lats_tmphigh = np.array(datanc.variables['latitude'][:])
@@ -126,14 +133,16 @@ def main():
                obs_wnd_cal_tmphigh = np.array(datanc.variables['obs_wnd_cal'][:])
                model_hs_tmphigh = np.array(datanc.variables['model_hs'][:])
                model_wnd_tmphigh = np.array(datanc.variables['model_wnd'][:])
-               #Check that obs values are the same for sanity check and if so, 
-               #replace model values with high res inserts where HS is not nan 
-               if ((obs_hs_tmphigh == obs_hs_tmpbase).all()): 
+               #Check that obs values are the same for sanity check and if so,
+               #replace model values with high res inserts where HS is not nan
+               if ((obs_hs_tmphigh == obs_hs_tmpbase).all()):
                   np.where(~np.isnan(model_hs_tmphigh), model_hs_tmpbase, model_hs_tmphigh)
                   np.where(~np.isnan(model_hs_tmphigh), model_wnd_tmpbase, model_wnd_tmphigh)
 
+            if missing:
+               continue
 
-         time = np.append(time, time_tmpbase) 
+         time = np.append(time, time_tmpbase)
          lats = np.append(lats, lats_tmpbase)
          lons = np.append(lons, lons_tmpbase)
          fhrs = np.append(fhrs, fhrs_tmpbase)
@@ -145,34 +154,35 @@ def main():
          obs_wnd_cal = np.append(obs_wnd_cal, obs_wnd_cal_tmpbase)
 
          model_hs = np.append(model_hs, model_hs_tmpbase)
-         model_wnd = np.append(model_wnd, model_wnd_tmpbase) 
-  
+         model_wnd = np.append(model_wnd, model_wnd_tmpbase)
+
       #remove values we should not use for wind due to zero at fhr0
       if model == "HR1":
-         model_wnd[fhrs<3]=np.nan 
+         model_wnd[fhrs<3]=np.nan
       elif model == "HR2":
-         model_wnd[fhrs<3]=np.nan 
+         model_wnd[fhrs<3]=np.nan
       elif model == "HR3a":
-         model_wnd[fhrs<1]=np.nan 
+         model_wnd[fhrs<1]=np.nan
       elif model == "HR3b":
-         model_wnd[fhrs<1]=np.nan 
+         model_wnd[fhrs<1]=np.nan
 
       #Call function to write out netcdf file with all forecast hours
       outfilename=f"combined_{model}_{season[k]}_{satelites[j]}.nc"
-      OUTFILE = OUTDIR + '/' + outfilename 
+      OUTFILE = OUTDIR + '/' + outfilename
       write_netcdf_file(OUTFILE, model, satelites[j], time,lats, lons, fhrs, obs_hs, obs_hs_cal, obs_wnd, obs_wnd_cal, model_hs, model_wnd)
-   
+
       day0=0
-      day=1 
+      day=1
       while day <= endday:
-        f0 = day0*24 
+        f0 = day0*24
         f1 = day*24
-        #it will likely be easier to match all models up if we don't filter nans out here... 
-        #indx=np.where(( fhrs < f1 ) & ( fhrs > f0 ) & (~np.isnan(model_hs))) 
-        indx=np.where(( fhrsall <= f1 ) & ( fhrsall > f0 )) 
+        #it will likely be easier to match all models up if we don't filter nans out here...
+        #indx=np.where(( fhrs < f1 ) & ( fhrs > f0 ) & (~np.isnan(model_hs)))
+        indx=np.where(( fhrsall <= f1 ) & ( fhrsall > f0 ))
         time_day = time[indx]
-        lats_day = lats[indx] 
-        lons_day = lats[indx] 
+        lats_day = lats[indx]
+#        lons_day = lats[indx]
+        lons_day = lons[indx]
         fhrs_day = fhrs[indx]
         obs_hs_day = obs_hs[indx]
         obs_wnd_day = obs_wnd[indx]
@@ -180,7 +190,7 @@ def main():
         obs_wnd_cal_day = obs_wnd_cal[indx]
         model_hs_day = model_hs[indx]
         model_wnd_day = model_wnd[indx]
-      
+
         #Call function to write out netcdf file for each day
         outfilename=f"combined_day{day:02d}_{model}_{season[k]}_{satelites[j]}.nc"
         OUTFILE = OUTDIR + '/' + outfilename

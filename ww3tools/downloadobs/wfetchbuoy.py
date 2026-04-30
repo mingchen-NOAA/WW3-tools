@@ -94,10 +94,10 @@ def ndbc_nc(*args):
      https://dods.ndbc.noaa.gov/thredds/fileServer/data/swden/
      The download is primarily done with urllib and xarray but, when it fails,
       wget is then used (linux system dependent).
-     The url used for download, when entering a past time interval, refers to 
-     quality-controlled observations of historical data (archive). 
-     Very recent data (near-real time) can be obtained by entering 9999 for the 
-      initial and final years. In this case, the last 10 years will be downloaded, up to 
+     The url used for download, when entering a past time interval, refers to
+     quality-controlled observations of historical data (archive).
+     Very recent data (near-real time) can be obtained by entering 9999 for the
+      initial and final years. In this case, the last 10 years will be downloaded, up to
       the last hour (if available).
      NOAA National Data Buoy Center:
       https://www.ndbc.noaa.gov/
@@ -186,14 +186,15 @@ def ndbc_nc(*args):
 
                 # Perform pull with check to see if spectra file exists. If it does, skip and look for next station.
                 if os.path.isfile(saveloc):
-                    pass         
+                    pass
                 else:
                     try:
                         reqSpectra = request.Request(webSpectra)
                         respS = request.urlopen(reqSpectra)
-                    except:
-                        pass
-                    else:            
+                    except Exception as e:
+                        print(f"FAILED spectra download: {webSpectra}")
+                        print(f"Reason: {type(e).__name__}: {e}")
+                    else:
                         try:
                             ds_s = xr.open_dataset(io.BytesIO(respS.read()))
                         except :
@@ -204,7 +205,7 @@ def ndbc_nc(*args):
                         else:
                             # Filter for specific date range before writing to NetCDF to save disk space.
                             if yr != 9999:
-                                ds_s = ds_s.sel(time=slice(start, end)) 
+                                ds_s = ds_s.sel(time=slice(start, end))
 
                             # Check to see if dataset is empty, if so, do not save it.
                             ds_s_np = np.array(ds_s['time'])
@@ -212,16 +213,17 @@ def ndbc_nc(*args):
                                 pass
                             else:
                                 ds_s.to_netcdf(saveloc)
-                
-                # Perform pull with check to see if wave file exists. If it does, skip and look for next station.    
+
+                # Perform pull with check to see if wave file exists. If it does, skip and look for next station.
                 if os.path.isfile(saveloc2):
                     pass
                 else:
                     try:
                         reqWave = request.Request(webWave)
                         respW = request.urlopen(reqWave)
-                    except:
-                        pass
+                    except Exception as e:
+                        print(f"FAILED wave download: {webWave}")
+                        print(f"Reason: {type(e).__name__}: {e}")
                     else:
                         try:
                             ds_w = xr.open_dataset(io.BytesIO(respW.read()))
@@ -272,7 +274,7 @@ def ndbc_stdmet(*args):
       wfetchbuoy.ndbc_stdmet(1990,2020,[41004,41047])
 
     OUTPUT:
-     Text files with NDBC metocean data for the buoys listed in 
+     Text files with NDBC metocean data for the buoys listed in
       the station list (third argument).
      One file per buoy.
 
@@ -325,12 +327,12 @@ def ndbc_stdmet(*args):
                 url = 'http://www.ndbc.noaa.gov/view_text_file.php?filename='+namest+'h'+repr(year)+'.txt.gz&dir=data/historical/stdmet/'
 
                 try:
-                    response = request.urlopen(url) 
+                    response = request.urlopen(url)
                 except :
                     print(url+"   does not exist"); print(" ")
                 else:
 
-                    data = response.read() 
+                    data = response.read()
                     text = data.decode('utf-8')
                     del data, response, url
 
@@ -343,7 +345,7 @@ def ndbc_stdmet(*args):
 
                     del text
                     print(" NDBC buoy "+namest.upper()+" "+repr(year)+" (stdmet format) successfully downloaded."); print(" ")
-                    
+
                 pbar.update(1)
 
         del namest
